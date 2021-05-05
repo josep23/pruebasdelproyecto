@@ -1,76 +1,191 @@
 import java.security.KeyStore;
+import java.util.IllegalFormatCodePointException;
 import java.util.Scanner;
 
 public class Main {
 
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        boolean matriz[][] = new boolean[5][5];
+    public static void tablero(boolean matriz[][]) {
 
-
-        System.out.println(matriz[0][0] + " | " + matriz[0][1] + " | " + matriz[0][2] + " | " + matriz[0][3] + " | " + matriz[0][4] );
-        System.out.println(matriz[1][0] + " | " + matriz[1][1] + " | " + matriz[1][2] + " | " + matriz[1][3] + " | " + matriz[1][4]);
-        System.out.println(matriz[2][0] + " | " + matriz[2][1] + " | " + matriz[2][2] + " | " + matriz[2][3] + " | " + matriz[2][4]);
-        System.out.println(matriz[3][0] + " | " + matriz[3][1] + " | " + matriz[3][2] + " | " + matriz[3][3] + " | " + matriz[3][4]);
-        System.out.println(matriz[4][0] + " | " + matriz[4][1] + " | " + matriz[4][2] + " | " + matriz[4][3] + " | " + matriz[4][4]);
-
-        System.out.println("/                        /");
-        System.out.println("Dime Y");
-        int Y = sc.nextInt();
-        if (Y>4){
-            System.out.println("ERROR DE Y");
-        }
-        System.out.println("Dime X");
-        int X = sc.nextInt();
-        if (X>4){
-            System.out.println("ERROR DE X");
-        }
-
-
-/*
-for (int i = 0; i < 5; i++){
-    for(int j = 0; j < 5; j++){
-    }
-}
- */
-        for (int i = 0; i < 10; i++) {
-
-            if ( X > 0){
-                if (matriz[Y][X]=false){
-                    matriz[Y][X]=true;
-                }
-                else if (matriz[Y][X]=true){
-                    matriz[Y][X]=false;
-                }
-                X=X-1;
-                if (matriz[Y][X]=false){
-                    matriz[Y][X]=true;
-                }
-                else if (matriz[Y][X]=true){
-                    matriz[Y][X]=false;
-                }
-
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz.length; j++) {
+                System.out.print(" | " + matriz[i][j] + " | ");
             }
-            System.out.println(matriz[0][0] + " | " + matriz[0][1] + " | " + matriz[0][2] + " | " + matriz[0][3] + " | " + matriz[0][4] );
-            System.out.println(matriz[1][0] + " | " + matriz[1][1] + " | " + matriz[1][2] + " | " + matriz[1][3] + " | " + matriz[1][4]);
-            System.out.println(matriz[2][0] + " | " + matriz[2][1] + " | " + matriz[2][2] + " | " + matriz[2][3] + " | " + matriz[2][4]);
-            System.out.println(matriz[3][0] + " | " + matriz[3][1] + " | " + matriz[3][2] + " | " + matriz[3][3] + " | " + matriz[3][4]);
-            System.out.println(matriz[4][0] + " | " + matriz[4][1] + " | " + matriz[4][2] + " | " + matriz[4][3] + " | " + matriz[4][4]);
+            System.out.println();
+        }
+    }
+
+    public static void main(String[] args) {
+            Boolean juego = true;
+            int contador=0;
+            Scanner sc = new Scanner(System.in);
+            boolean matriz[][] = new boolean[5][5];
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz.length; j++) {
+                matriz[i][j]=true;
+                System.out.print(" | " + matriz[i][j] + " | ");
+            }
+            System.out.println();
+        }
+        while (juego != false) {
 
             System.out.println("/                        /");
             System.out.println("Dime Y");
-             Y = sc.nextInt();
-            if (Y>4){
+            int Y = sc.nextInt();
+            if (Y > 4) {
                 System.out.println("ERROR DE Y");
             }
             System.out.println("Dime X");
-             X = sc.nextInt();
-            if (X>4){
+            int X = sc.nextInt();
+            if (X > 4) {
                 System.out.println("ERROR DE X");
             }
 
-        }
+            if (-1 < Y && Y < matriz.length && -1 < X && X < matriz.length) {
 
+                matriz[Y][X] = !matriz[Y][X];
+
+                if (X==0){
+                    X=X+1;
+                    matriz[Y][X] = !matriz[Y][X];
+                    X=X-1;
+                }
+                else if (X==4){
+                    X=X-1;
+                    matriz[Y][X] = !matriz[Y][X];
+                    X=X+1;
+                }
+                else{
+                    X=X-1;
+                    matriz[Y][X] = !matriz[Y][X];
+                    X=X+2;
+                    matriz[Y][X] = !matriz[Y][X];
+                    X=X-1;
+                }
+
+                if (Y==0){
+                    Y=Y+1;
+                    matriz[Y][X] = !matriz[Y][X];
+                    Y=Y-1;
+                }
+                else if (Y==4){
+                    Y=Y-1;
+                    matriz[Y][X] = !matriz[Y][X];
+                    Y=Y+1;
+                }
+                else{
+                    Y=Y-1;
+                    matriz[Y][X] = !matriz[Y][X];
+                    Y=Y+2;
+                    matriz[Y][X] = !matriz[Y][X];
+                    Y=Y-1;
+                }
+                for (int i = 0; i < matriz.length; i++) {
+                    for (int j = 0; j < matriz.length; j++) {
+                        if (matriz[Y][X]=false){
+                            contador++;
+                        }
+                    }
+                }
+                if (contador==25){
+                    System.out.println("__________________▄▄▄▀▀▀▀▀▀▀▄");
+                    System.out.println("_______________▄▀▀____▀▀▀▀▄____█");
+                    System.out.println("___________▄▀▀__▀▀▀▀▀▀▄___▀▄___█");
+                    System.out.println("__________█▄▄▄▄▄▄_______▀▄__▀▄__█");
+                    System.out.println("_________█_________▀▄______█____█_█");
+                    System.out.println("______▄█_____________▀▄_____▐___▐_▌");
+                    System.out.println("______██_______________▀▄___▐_▄▀▀▀▄");
+                    System.out.println("______█________██_______▌__▐▄▀______█");
+                    System.out.println("______█_________█_______▌__▐▐________▐");
+                    System.out.println("_____▐__________▌_____▄▀▀▀__▌_______▐_____________▄▄▄▄▄▄");
+                    System.out.println("______▌__________▀▀▀▀________▀▀▄▄▄▀______▄▄████▓▓▓▓▓▓▓███▄");
+                    System.out.println("______▌____________________________▄▀__▄▄█▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▄");
+                    System.out.println("______▐__________________________▄▀_▄█▓▓▓▓▓▓▓▓▓▓_____▓▓____▓▓█▄");
+                    System.out.println("_______▌______________________▄▀_▄█▓▓▓▓▓▓▓▓▓▓▓____▓▓_▓▓_▓▓__▓▓█");
+                    System.out.println("_____▄▀▄_________________▄▀▀▌██▓▓▓▓▓▓▓▓▓▓▓▓▓__▓▓▓___▓▓_▓▓__▓▓█");
+                    System.out.println("____▌____▀▀▀▄▄▄▄▄▄▄▄▀▀___▌█▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓__▓________▓▓___▓▓▓█");
+                    System.out.println("_____▀▄_________________▄▀▀▓▓▓▓▓▓▓▓█████████████▄▄_____▓▓__▓▓▓█");
+                    System.out.println("_______█▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓█▓▓▓▓▓██▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓██▄▄___▓▓▓▓▓█");
+                    System.out.println("_______█▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓█▓▓███▓▓▓▓████▓▓▓▓▓▓▓▓▓▓▓▓▓██▓▓▓▓▓▓█");
+                    System.out.println("________█▓▓▓▓▓▓▓▓▓▓▓▓▓▓█▓█▓▓██░░███████░██▓▓▓▓▓▓▓▓▓▓██▓▓▓▓▓█");
+                    System.out.println("________█▓▓▓▓▓▓▓▓▓▓▓▓▓▓██▓░░░░░█░░░░░██░░░░██▓▓▓▓▓▓▓▓▓██▓▓▓▓▌");
+                    System.out.println("________█▓▓▓▓▓▓▓▓▓▓▓▓▓▓███░░░░░░░░____░██░░░░░░░██▓▓▓▓▓▓▓██▓▓▌");
+                    System.out.println("________▐▓▓▓▓▓▓▓▓▓▓▓▓▓▓██░░░░░░░________░░░░░░░░░██████▓▓▓▓▓█▓▌");
+                    System.out.println("________▐▓▓▓▓▓▓▓▓▓▓▓▓▓▓██░░░░░░___▓▓▓▓▓░░░░░░░███░░███▓▓▓▓▓█▓▌");
+                    System.out.println("_________█▓▓▓▓▓▓▓▓▓▓▓▓▓██░░░░░___▓▓█▄▄▓░░░░░░░░___░░░░█▓▓▓▓▓█▓▌");
+                    System.out.println("_________█▓▓▓▓▓▓▓▓▓▓▓▓▓█░░█░░░___▓▓██░░░░░░░░▓▓▓▓__░░░░█▓▓▓▓██");
+                    System.out.println("_________█▓▓▓▓▓▓▓▓▓▓▓▓▓█░███░░____▓░░░░░░░░░░░█▄█▓__░░░░█▓▓█▓█");
+                    System.out.println("_________▐▓▓▓▓▓▓▓▓▓▓▓▓▓█░█████░░░░░░░░░░░░░░░░░█▓__░░░░███▓█");
+                    System.out.println("__________█▓▓▓▓▓▓▓▓▓▓▓▓█░░███████░░░░░░░░░░░░░░░▓_░░░░░██▓█");
+                    System.out.println("__________█▓▓▓▓▓▓▓▓▓▓▓▓█░░░███████░░░░░░░░░░░░░░_░░░░░██▓█");
+                    System.out.println("__________█▓▓▓▓▓▓▓▓▓▓▓▓█░░░███████░░░░░░░░░░░░░░░░░░░██▓█");
+                    System.out.println("___________█▓▓▓▓▓▓▓▓▓▓▓▓█░░░░███████░░░░░░░░░░░█████░██░");
+                    System.out.println("___________█▓▓▓▓▓▓▓▓▓▓▓▓█░░░░░░__███████░░░░░███████░░█░░");
+                    System.out.println("___________█▓▓▓▓▓▓▓▓▓▓▓▓▓█░░░░░░█▄▄▄▀▀▀▀████████████░░█░");
+                    System.out.println("___________▐▓▓▓▓▓▓▓▓▓▓▓▓█░░░░░░██████▄__▀▀░░░███░░░░░█");
+                    System.out.println("___________▐▓▓▓▓▓▓▓▓▓▓▓█▒█░░░░░░▓▓▓▓▓███▄░░░░░░░░░░░____________▄▄▄");
+                    System.out.println("___________█▓▓▓▓▓▓▓▓▓█▒▒▒▒█░░░░░░▓▓▓▓▓█░░░░░░░░░░░______▄▄▄_▄▀▀____▀▄");
+                    System.out.println("__________█▓▓▓▓▓▓▓▓▓█▒▒▒▒█▓▓░░░░░░░░░░░░░░░░░░░░░____▄▀____▀▄_________▀▄");
+                    System.out.println("_________█▓▓▓▓▓▓▓▓▓█▒▒▒▒█▓▓▓▓░░░░░░░░░░░░░░░░░______▐▄________█▄▄▀▀▀▄__█");
+                    System.out.println("________█▓▓▓▓▓▓▓▓█▒▒▒▒▒▒█▓▓▓▓▓▓▓░░░░░░░░░____________█_█______▐_________▀▄▌");
+                    System.out.println("_______█▓▓▓▓▓▓▓▓█▒▒▒▒▒▒███▓▓▓▓▓▓▓▓▓▓▓█▒▒▄___________█__▀▄____█____▄▄▄____▐");
+                    System.out.println("______█▓▓▓▓▓▓▓█_______▒▒█▒▒██▓▓▓▓▓▓▓▓▓▓█▒▒▒▄_________█____▀▀█▀▄▀▀▀___▀▀▄▄▐");
+                    System.out.println("_____█▓▓▓▓▓██▒_________▒█▒▒▒▒▒███▓▓▓▓▓▓█▒▒▒██________▐_______▀█_____________█");
+                    System.out.println("____█▓▓████▒█▒_________▒█▒▒▒▒▒▒▒▒███████▒▒▒▒██_______█_______▐______▄▄▄_____█");
+                    System.out.println("__█▒██▒▒▒▒▒▒█▒▒____▒▒▒█▒▒▒▒▒▒▒▒▒▒▒▒▒▒█▒____▒█▓█__▄█__█______▀▄▄▀▀____▀▀▄▄█");
+                    System.out.println("__█▒▒▒▒▒▒▒▒▒▒█▒▒▒████▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█_______█▓▓█▓▓▌_▐________▐____________▐");
+                    System.out.println("__█▒▒▒▒▒▒▒▒▒▒▒███▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█▒_______█▓▓▓█▓▌__▌_______▐_____▄▄____▐");
+                    System.out.println("_█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█▒▒_____█▓▓▓█▓▓▌__▌_______▀▄▄▀______▐");
+                    System.out.println("_█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒███████▓▓█▓▓▓▌__▀▄_______________▄▀");
+                    System.out.println("_█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒███▒▒▒▒▒▒▒██▓▓▓▓▓▌___▀▄_________▄▀▀");
+                    System.out.println("█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒██▒▒▒▒▒▒▒▒▒▒▒▒▒█▓▓▓▓▓▀▄__▀▄▄█▀▀▀");
+                    System.out.println("█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒██▓▓▓▓██▄▄▄▀");
+                    System.out.println("█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒████");
+                    System.out.println("█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█");
+                    System.out.println("_█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█▒▒▒█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█▄▄▄▄▄");
+                    System.out.println("_█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█▒▒▒▒█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒███▒▒▒▒▒▒██▄▄");
+                    System.out.println("__█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█▒▒▒▒█▒▒▒▒▒▒▒▒▒▒▒▒███▒▒▒▒▒▒▒▒▒▒▒▒▒█▄");
+                    System.out.println("__█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█▒▒▒▒█▒▒▒▒▒▒▒▒▒▒▒█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█");
+                    System.out.println("__█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█▒▒▒▒█▒▒▒▒▒▒▒▒▒██▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█");
+                    System.out.println("___█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█▒▒▒▒█▒▒▒▒▒▒▒▒█▒▒▒▒▒▒▒▒▒▒▒▒▒░░░░▒▒▒▒▒▒▌");
+                    System.out.println("____█▒▒▒▒▒▒▒▒▒▒▒▒▒██▒▒▒▒▒▒▒█▒▒▒▒█▒▒▒▒▒▒█▒▒▒▒▒▒▒▒▒░░░░░░░░░░░░░▒▒▌");
+                    System.out.println("____█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█████████████▒▒▒▒▒█▒▒▒▒▒▒▒▒░░░░▒▒▒▒▒▒▒▒▒▒▒░▒▌");
+                    System.out.println("_z____█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█_______▐▒▒▒▒█▒▒▒▒▒▒▒░░░▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░▌");
+                    System.out.println("______█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█________█▒▒█▒▒▒▒▒▒░░░▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▌");
+                    System.out.println("_______█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█________█▒█▒▒▒▒▒▒░░░▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▌");
+                    System.out.println("________█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█________█▒▒▒▒▒▒░░▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█");
+                    System.out.println("_________█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█________█▒▒▒▒░░▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█");
+                    System.out.println("_________█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█________█▒▒▒░░░░░░░▒▒▒▒▒▒▒▒▒▒▒▒▒▒█▀");
+                    System.out.println("__________█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█_______█▒░░░▒▒▒▒▒░░░░░░░░▒▒▒█▀▀▀");
+                    System.out.println("___________█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█_______█░▒▒▒▒▒▒▒▒▒▒▒▒▒░░░░█▀");
+                    System.out.println("____________█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█_______█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█▀");
+                    System.out.println("_____________█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█_______█▒▒▒▒▒▒▒▒▒▒▒▒█▀");
+                    System.out.println("_____________█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█_______▀▀▀███████▀▀");
+                    System.out.println("______________█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█");
+                    System.out.println("_______________█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█");
+                    System.out.println("________________█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█");
+                    System.out.println("_________________█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█");
+                    System.out.println("__________________█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒██▒█");
+                    System.out.println("___________________█▒▒▒▒▒▒▒▒▒▒▒▒▒██▒▒▒▒█");
+                    System.out.println("___________________█▒▒▒▒▒▒▒▒████▒▒▒▒▒▒▒█");
+                    System.out.println("___________________█████████▒▒▒▒▒▒▒▒▒▒▒█");
+                    System.out.println("____________________█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█");
+                    System.out.println("____________________█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█");
+                    System.out.println("_____________________█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░▌");
+                    System.out.println("_____________________█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░▌");
+                    System.out.println("______________________█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░░▌");
+                    System.out.println("_______________________█▒▒▒▒▒▒▒▒▒▒▒▒▒▒░░█");
+                    System.out.println("________________________█▒▒▒▒▒▒▒▒▒▒▒░░░█");
+                    System.out.println("__________________________██▒▒▒▒▒▒░░░█▀");
+                    System.out.println("_____________________________█░░░░░█▀");
+                    System.out.println("_______________________________▀▀▀▀");
+                    juego=false;
+                }
+                tablero(matriz);
+            } else {
+                System.out.println("Coordenadas erroneas");
+                juego=false;
+            }
+        }
     }
 }
